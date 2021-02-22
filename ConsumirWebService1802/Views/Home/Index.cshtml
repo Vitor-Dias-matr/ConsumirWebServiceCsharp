@@ -1,0 +1,46 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="row">
+    <h1>Numero 1</h1>
+    <input type="text" id="num1" />
+
+    <h1>Numero 2</h1>
+    <input type="text" id="num2" />
+    <input type="button" value="Somar" onclick="somar()" />
+</div>
+
+<div id="resultado"> </div>
+
+@section scripts{
+    <script>
+        console.log("oi");
+        function somar() {
+            var numero1 = jQuery('#num1').val();
+            var numero2 = jQuery('#num2').val();
+            console.log(numero1);
+            console.log(numero2);
+            $.ajax({
+                type: 'POST',
+                url: 'Soma',
+                dataType: 'json',
+                data: { num1: numero1, num2: numero2 },
+                success: function (data) {
+                    $('#resultado').html(`
+                                  <p> Resultado </p>
+                                 <p> ${data.success} </p>
+                                   `);
+                }
+            });
+            //$('#resultado').html('');
+            //jQuery.post('Soma', { num1: numero1, num2: numero2 })
+            //    .success(function () {
+            //        $('#resultado').html(`
+            //                 <p> Resultado </p>
+            //                 <p> ${Data} </p>
+            //                   `);
+            //    });
+        };
+    </script>
+}
